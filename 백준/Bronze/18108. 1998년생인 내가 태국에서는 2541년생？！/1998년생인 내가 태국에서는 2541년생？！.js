@@ -1,6 +1,15 @@
-const fs = require("fs");
-const input = fs.readFileSync("/dev/stdin").toString().trim();
+const readline = require("readline");
 
-const year = Number(input);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-console.log(year - 543);
+rl.on("line", (line) => {
+  const input = line.trim();
+  const year = Number(input);
+
+  console.log(year - 543);
+
+  rl.close();
+});
