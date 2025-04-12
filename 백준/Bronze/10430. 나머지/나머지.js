@@ -1,20 +1,21 @@
 const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
 rl.on("line", (line) => {
-    input = line;
-    rl.close();
-});
+  const input = line.trim().split(" ");
 
-rl.on("close", () => {
-    const [a, b, c] = input.split(" ").map(Number);
+  const a = Number(input[0]);
+  const b = Number(input[1]);
+  const c = Number(input[2]);
 
-    console.log((a + b) % c);
-    console.log(((a % c) + (b % c)) % c);
-    console.log((a * b) % c);
-    console.log(((a % c) * (b % c)) % c);
+  console.log((a + b) % c);
+  console.log(((a % c) + (b % c)) % c);
+  console.log((a * b) % c);
+  console.log(((a % c) * (b % c)) % c);
+
+  rl.close();
 });
