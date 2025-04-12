@@ -1,7 +1,15 @@
-const fs = require("fs");
-const input = fs.readFileSync("/dev/stdin").toString().split(" ");
+const readline = require("readline");
 
-const a = parseInt(input[0]);
-const b = parseInt(input[1]);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-console.log(a / b);
+rl.on("line", (line) => {
+  const input = line.trim().split(" ");
+  const a = Number(input[0]);
+  const b = Number(input[1]);
+
+  console.log(a / b);
+  rl.close();
+});
