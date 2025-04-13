@@ -1,39 +1,39 @@
-const { join } = require("path");
 const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
-let input = "";
-
+const input = [];
 rl.on("line", (line) => {
-    input = line.trim();
-    rl.close();
-});
+  input.push(String(line.trim()));
+  rl.close();
+}).on("close", () => {
+  const nums = {
+    "": 1,
+    ABC: 2,
+    DEF: 3,
+    GHI: 4,
+    JKL: 5,
+    MNO: 6,
+    PQRS: 7,
+    TUV: 8,
+    WXYZ: 9,
+  };
 
-rl.on("close", () => {
-    const dial = {
-        "ABC": 3,
-        "DEF": 4,
-        "GHI": 5,
-        "JKL": 6,
-        "MNO": 7,
-        "PQRS": 8,
-        "TUV": 9,
-        "WXYZ": 10,
-    };
+  let total = 0;
+  const arr = input[0].split("");
 
-    let result = 0;
-
-    for (let char of input) {
-        for (let key in dial) {
-            if (key.includes(char)) {
-                result += dial[key];
-                break;
-            }
-        }
+  for (let char of arr) {
+    for (let key in nums) {
+      if (key.includes(char)) {
+        total += nums[key] + 1;
+      }
     }
-    console.log(result);
+  }
+
+  console.log(total);
+
+  process.exit();
 });
