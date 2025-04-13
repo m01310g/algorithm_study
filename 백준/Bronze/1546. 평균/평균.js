@@ -1,28 +1,22 @@
-const { join } = require("path");
 const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
-let input = [];
-
+const input = [];
 rl.on("line", (line) => {
-    if (input.length === 0) {
-        input.push(Number(line.trim()));
-    } else {
-        input.push(line.split(" ").map(Number));
-        rl.close();
-    }
-});
+  input.push(line.trim());
+  if (input.length === 2) rl.close();
+}).on("close", () => {
+  const n = Number(input[0]);
+  const arr = input[1].split(" ").map(Number);
 
-rl.on("close", () => {
-    const n = input[0];
-    let result = 0;
-    const max = Math.max(...input[1]);
-    for (let i = 0; i < n; i++) {
-        result += (input[1][i] / max) * 100;
-    }
-    console.log(result / n);
+  const m = Math.max(...arr);
+
+  const result = arr.map((e) => (e / m) * 100);
+  console.log(result.reduce((a, b) => a + b) / n);
+
+  process.exit();
 });
