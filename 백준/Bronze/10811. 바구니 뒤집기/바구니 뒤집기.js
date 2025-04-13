@@ -1,35 +1,27 @@
-const { join } = require("path");
 const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
-let input = [];
-let count = 0;
-
+const input = [];
 rl.on("line", (line) => {
-    count++;
-    if (count === 1) {
-        input.push(line.split(" ").map(Number));
-    } else {
-        input.push(line.split(" ").map(Number));
-    }
+  input.push(line.trim().split(" ").map(Number));
+  const m = input[0][1];
+  if (input.length === m + 1) rl.close();
+}).on("close", () => {
+  const [n, m] = input[0];
+  const arr = Array.from({ length: n }, (_, index) => index + 1);
 
-    if (input[0][1] + 1 === count) {
-        rl.close();
-    }
-});
+  for (let x = 1; x < m + 1; x++) {
+    const [i, j] = input[x];
+    const reversed = arr.slice(i - 1, j).reverse();
 
-rl.on("close", () => {
-    const [n, m] = input[0];
-    const result = Array.from({ length: n }, (_, index) => index + 1);
-    for (let i = 1; i <= m; i++) {
-        const [x, y] = input[i];
-        const reversed = result.slice(x - 1, y).reverse();
-        result.splice(x - 1, y - x + 1, ...reversed);
-    }
+    arr.splice(i - 1, j - i + 1, ...reversed);
+  }
 
-    console.log(result.join(" "));
+  console.log(arr.join(" "));
+
+  process.exit();
 });
