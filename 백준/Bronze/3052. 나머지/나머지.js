@@ -1,24 +1,23 @@
 const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
-let input = [];
-
+const input = [];
 rl.on("line", (line) => {
-    input.push(Number(line.trim()));
-    if (input.length === 10) {
-        rl.close();
-    }
-});
+  input.push(Number(line.trim()));
+  if (input.length === 10) rl.close();
+}).on("close", () => {
+  const result = [];
 
-rl.on("close", () => {
-    const result = new Set();
-    for (let i = 0; i < 10; i++) {
-        result.add(input[i] % 42);
-    }
+  input.filter((e) => result.push(e % 42));
 
-    console.log(result.size);
+  const set = new Set(result);
+  const arr = [...set];
+
+  console.log(arr.length);
+
+  process.exit();
 });
