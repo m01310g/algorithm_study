@@ -1,22 +1,19 @@
-const { join } = require("path");
 const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
-let input = [];
-
+const input = [];
 rl.on("line", (line) => {
-    if (input.length === 0) {
-        input.push(line.trim().toString());
-    } else {
-        input.push(Number(line));
-        rl.close();
-    }
-});
+  input.push(line.trim());
+  if (input.length === 2) rl.close();
+}).on("close", () => {
+  const s = input[0].toString();
+  const i = Number(input[1]);
 
-rl.on("close", () => {
-    console.log(input[0][input[1] - 1]);
+  console.log(s[i - 1]);
+
+  process.exit();
 });
