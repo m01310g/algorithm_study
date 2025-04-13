@@ -1,22 +1,23 @@
-const { join } = require("path");
 const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
-let input = [];
-
+const input = [];
 rl.on("line", (line) => {
-    input = line.split(" ");
-    rl.close();
-});
+  input.push(line.trim().split(" ").map(String));
+  rl.close();
+}).on("close", () => {
+  const [a, b] = input[0];
 
-rl.on("close", () => {
-    const reversedNum = input.map((num) => {
-        return parseInt(num.split("").reverse().join(""), 10);
-    });
+  const reverseNum = (str) => Number(str.split("").reverse().join(""));
 
-    console.log(Math.max(...reversedNum));
+  const reversedA = reverseNum(a);
+  const reversedB = reverseNum(b);
+
+  console.log(Math.max(reversedA, reversedB));
+
+  process.exit();
 });
