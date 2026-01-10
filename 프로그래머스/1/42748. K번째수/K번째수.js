@@ -1,10 +1,12 @@
 function solution(array, commands) {
     var answer = [];
-    for (let a = 0; a < commands.length; a++) {
-        const [i, j, k] = commands[a];
-        const arr = array.slice(i - 1, j);
-        arr.sort((a, b) => a - b);
-        answer.push(arr[k - 1]);
+    
+    for (let x = 0; x < commands.length; x++) {
+        const [i, j, k] = commands[x];
+        const result = array.slice(i - 1, j);
+        result.sort((a, b) => a - b);
+        answer.push(result[k - 1]);
     }
+
     return answer;
 }
