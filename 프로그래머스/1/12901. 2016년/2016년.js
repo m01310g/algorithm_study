@@ -1,14 +1,12 @@
 function solution(a, b) {
     var answer = '';
+    
     const days = ['FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU'];
-    const arr = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    let day = b;
+    const months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     
-    for (let i = 0; i < a - 1; i++) {
-        day += arr[i];
-    }
+    const total = months.slice(0, a - 1).reduce((sum, cur) => sum + cur, 0) + b;
     
-    answer = days[(day - 1) % 7]
+    answer = days[(total - 1) % 7];
     
     return answer;
 }
