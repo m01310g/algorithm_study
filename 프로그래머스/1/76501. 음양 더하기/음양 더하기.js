@@ -1,9 +1,11 @@
 function solution(absolutes, signs) {
-    const res = [];
+    const arr = [];
+    
     for (let i = 0; i < absolutes.length; i++) {
-        if (signs[i]) res.push(absolutes[i]);
-        else res.push(absolutes[i] * (-1));
+        if (!signs[i]) arr.push(absolutes[i] * (-1));
+        else arr.push(absolutes[i]);
     }
     
-    return res.reduce((a, b) => a + b);
+    const answer = arr.reduce((acc, curr) => acc + curr);
+    return answer;
 }
