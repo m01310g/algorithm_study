@@ -1,8 +1,9 @@
 function solution(s) {
     var answer = '';
+    const arr = s.split(" ");
+    const maxNum = Math.max(...arr);
+    const minNum = Math.min(...arr);
     
-    const arr = s.split(" ").map(Number);
-    
-    answer = `${Math.min(...arr)} ${Math.max(...arr)}`
+    answer = [minNum, maxNum].join(" ");
     return answer;
 }
