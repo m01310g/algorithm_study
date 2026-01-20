@@ -1,27 +1,26 @@
-const isValid = (s) => {
-    const stack = [];
-
-    for (let c of s) {
-        if (c === "(" || c === "[" || c === "{") {
-            stack.push(c);
-        } else {
-            const top = stack.pop();
-            if ((c === ")" && top !== "(") || (c === "]" && top !== "[") || (c === "}" && top !== "{")) {
-                return false;
+function solution(s) {
+    let answer = 0;
+    
+    const isValid = (str) => {
+        const stack = [];
+        const pair = {
+            ")": "(",
+            "}": "{",
+            "]": "["
+        };
+        
+        for (const char of str) {
+            if ("({[".includes(char)) stack.push(char);
+            else {
+                if (!stack.length || stack.pop() !== pair[char]) return false;
             }
         }
+        return stack.length === 0;
     }
-    return stack.length === 0;
-}
-
-function solution(s) {
-    let count = 0;
-    const n = s.length;
     
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < s.length; i ++) {
         const rotated = s.slice(i) + s.slice(0, i);
-        if (isValid(rotated)) count++;
+        if (isValid(rotated)) answer++;
     }
-    
-    return count;
+    return answer;
 }
