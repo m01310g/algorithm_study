@@ -1,15 +1,14 @@
 function solution(clothes) {
-    const clothesMap = {};
+    let answer = 1;
+    const clothMap = {};
     
-    for (let i = 0; i < clothes.length; i++) {
-        const type = clothes[i][1];
-        clothesMap[type] = (clothesMap[type] || 0) + 1;
+    for (const c of clothes) {
+        const [name, type] = c;
+        clothMap[type] = (clothMap[type] || 0) + 1
     }
     
-    let answer = 1;
-    
-    for (const type in clothesMap) {
-        answer *= (clothesMap[type] + 1);
+    for (const type in clothMap) {
+        answer *= (clothMap[type] + 1)
     }
     
     return answer - 1;
