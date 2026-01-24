@@ -2,13 +2,11 @@ function solution(brown, yellow) {
     var answer = [];
     const total = brown + yellow;
     
-    for (let height = 3; height <= Math.sqrt(total); height++) {
-        let width = total / height;
+    for (let h = 3; h < brown; h++) {
+        const w = total / h;
+        const inner = (w - 2) * (h - 2);
         
-        const cond = (width - 2) * (height - 2) === yellow;
-        
-        if (Number.isInteger(width) && width >= height && cond) {
-            return [width, height];
-        }
+        if (Number.isInteger(w) && w >= h && yellow === inner) answer = [w, h];
     }
-};
+    return answer;
+}
