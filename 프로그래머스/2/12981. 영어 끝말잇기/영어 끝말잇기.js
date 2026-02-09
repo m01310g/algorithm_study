@@ -1,18 +1,21 @@
 function solution(n, words) {
-    const used = new Set();
+    const seen = new Set([words[0]]);
     
-    for (let i = 0; i < words.length; i++) {
-        const word = words[i];
+    for (let i = 1; i < words.length; i++) {
         const prev = words[i - 1];
+        const curr = words[i];
         
-        if (i > 0 && word[0] !== prev[prev.length - 1] || used.has(word)) {
-            const person = (i % n) + 1;
-            const round = Math.floor(i / n) + 1;
-            return [person, round];
+        const lastIdx = prev.length - 1;
+        
+        const badChain = prev[lastIdx] !== curr[0];
+        const duplicated = seen.has(curr);
+        
+        if (badChain || duplicated) {
+            const p = (i % n) + 1;
+            const t = Math.floor(i / n) + 1;
+            return [p, t];
         }
-        
-        used.add(word);
+        seen.add(curr);
     }
-    
-    return [0, 0]
+    return [0, 0];
 }
