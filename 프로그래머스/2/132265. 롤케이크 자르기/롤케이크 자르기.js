@@ -1,21 +1,23 @@
-function solution(topping) {    
+function solution(topping) {
+    var answer = -1;
+    const left = new Set();
+    const right = new Map();
     let count = 0;
-    const leftSet = new Set();
-    const rightMap = new Map();
     
+        
     for (const top of topping) {
-        rightMap.set(top, (rightMap.get(top) || 0) + 1);
+        right.set(top, (right.get(top) || 0) + 1);
     }
     
     for (const top of topping) {
-        leftSet.add(top);
+        left.add(top);
+        right.set(top, right.get(top) - 1);
         
-        rightMap.set(top, rightMap.get(top) - 1);
-        if (rightMap.get(top) === 0) rightMap.delete(top);
-        
-        if (leftSet.size === rightMap.size) count++;
-        
+        if (right.get(top) === 0) right.delete(top);
+        if (left.size === right.size) count++;
     }
     
-    return count;
+    answer = count;
+    
+    return answer;
 }
