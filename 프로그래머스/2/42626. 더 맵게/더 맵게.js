@@ -29,7 +29,7 @@ class MinHeap {
     _bubbleUp(i) {
         while (i > 0) {
             const p = Math.floor((i - 1) / 2);
-            if (this.h[p] <= this.h[i]) break;
+            if (this.h[p] <= this.h[i] ) break;
             [this.h[p], this.h[i]] = [this.h[i], this.h[p]];
             i = p;
         }
@@ -37,6 +37,7 @@ class MinHeap {
     
     _bubbleDown(i) {
         const n = this.h.length;
+        
         while (true) {
             let smallest = i;
             const l = i * 2 + 1;
@@ -59,8 +60,9 @@ function solution(scoville, K) {
     let count = 0;
     
     while (heap.size() >= 2 && heap.peek() < K) {
-        const a = heap.pop();   // 가장 작은 값
-        const b = heap.pop();   // 두 번째로 작은 값
+        const a = heap.pop();
+        const b = heap.pop();
+        
         heap.push(a + b * 2);
         count++;
     }
