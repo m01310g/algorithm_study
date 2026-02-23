@@ -1,22 +1,18 @@
 function solution(participant, completion) {
     var answer = '';
-    let dict = {};
-    participant.forEach((p) => {
-        if (p in dict) {
-            dict[p] += 1;
-        } else {
-            dict[p] = 1;
-        }
-    });
+    const pMap = {};
     
-    completion.forEach((c) => {
-        if (c in dict) {
-            dict[c] -= 1;
-        }
-    });
+    for (const p of participant) {
+        pMap[p] = (pMap[p] || 0) + 1;
+    }
     
-    Object.keys(dict).forEach((p) => {
-        if (dict[p] === 1) answer = p;
-    })
+    for (const c of completion) {
+        pMap[c] -= 1;
+    }
+    
+    for (const p in pMap) {
+        if (pMap[p] > 0) answer = p;
+    }
+    
     return answer;
 }
