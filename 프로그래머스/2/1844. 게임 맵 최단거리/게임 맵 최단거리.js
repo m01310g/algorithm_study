@@ -1,54 +1,32 @@
-class Deque {
-    constructor() {
-        this.data = [];
-        this.front = 0;
-        this.back = 0;
-    }
-    
-    push(val) {
-        this.data[this.back++] = val;
-    }
-    
-    shift() {
-        if (this.front === this.back) return undefined;
-        return this.data[this.front++];
-    }
-    
-    isEmpty() {
-        return this.front === this.back;
-    }
-}
-
 function solution(maps) {
-    const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    var answer = 0;
+    const queue = [];
+    let head = 0;
+    const n = maps.length;
+    const m = maps[0].length;
+    const dist = Array.from(Array(n), () => Array(m).fill(0));
+    const dx = [-1, 1, 0, 0];
+    const dy = [0, 0, -1, 1];
     
-    const bfs = () => {
-        const queue = new Deque();
-        const n = maps.length, m = maps[0].length;
-        const visited = Array.from({ length: n }, () => Array(m).fill(false));
+    dist[0][0] = 1;
+    queue.push([0, 0]);
+    
+    while(head < queue.length) {
+        const [x, y] = queue[head++];
         
-        visited[0][0] = true;
-        queue.push([0, 0, 1]);
-        
-        while (!queue.isEmpty()) {
-            const [x, y, dist] = queue.shift();
+        for (let i = 0; i < 4; i++) {
+            const nx = x + dx[i];
+            const ny = y + dy[i];
             
-            // 도착 지점에 도달했을 경우
-            if (x === n - 1 && y === m - 1) return dist;
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+            if (maps[nx][ny] === 0) continue;
+            if (dist[nx][ny] !== 0) continue;
             
-            for (const [dx, dy] of directions) {
-                const nx = x + dx;
-                const ny = y + dy;
-                
-                if (nx >= 0 && nx < n && ny >= 0 && ny < m && maps[nx][ny] === 1 && !visited[nx][ny]) {
-                    visited[nx][ny] = true;
-                    queue.push([nx, ny, dist + 1]);
-                }
-            }
+            dist[nx][ny] = dist[x][y] + 1;
+            queue.push([nx, ny]);
         }
-        
-        return -1;
     }
     
-    return bfs();
+    answer = dist[n - 1][m - 1] === 0 ? -1: dist[n - 1][m - 1];
+    return answer;
 }
