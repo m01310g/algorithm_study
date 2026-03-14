@@ -3,7 +3,7 @@ class Heap {
         this.h = [];
         this.compare = compare;
     }
-    
+
     size() {
         return this.h.length;
     }
@@ -11,7 +11,7 @@ class Heap {
     peek() {
         return this.h[0];
     }
-    
+        
     push(val) {
         this.h.push(val);
         this._bubbleUp(this.h.length - 1);
@@ -57,11 +57,11 @@ class Heap {
 
 function solution(operations) {
     var answer = [];
-    const minHeap = new Heap((a, b) => a <= b);
     const maxHeap = new Heap((a, b) => a >= b);
+    const minHeap = new Heap((a, b) => a <= b);
     const countMap = new Map();
     
-    const cleanHeap = (heap) => {
+    const cleanHeap = (heap) => {   // lazy deletion
         while (heap.size() > 0) {
             const top = heap.peek();
             if ((countMap.get(top) || 0) > 0) break;
@@ -71,11 +71,10 @@ function solution(operations) {
     
     for (const op of operations) {
         const [cmd, val] = op.split(" ");
-         
         if (cmd === "I") {
             const num = Number(val);
-            minHeap.push(num);
             maxHeap.push(num);
+            minHeap.push(num);
             countMap.set(num, (countMap.get(num) || 0) + 1);
         } else {
             if (val === "1") {
