@@ -8,7 +8,7 @@ function solution(N, number) {
     
     for (let k = 1; k < 9; k++) {
         dp[k].add(Number(N.toString().repeat(k)));
-        for (let i = 1; i < k; i++) {
+        for (let i = 0; i < k; i++) {
             for (const a of dp[i]) {
                 for (const b of dp[k - i]) {
                     dp[k].add(a + b);
