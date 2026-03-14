@@ -8,10 +8,10 @@ function solution(number, k) {
             stack.pop();
             k--;
         }
+        
         stack.push(curr);
     }
     
     answer = stack.slice(0, stack.length - k).join("");
-    
     return answer;
 }
