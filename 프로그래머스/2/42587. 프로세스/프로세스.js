@@ -1,7 +1,7 @@
 function solution(priorities, location) {
-    let order = 0;
+    var answer = 0;
     let head = 0;
-    
+    let order = 0;
     const queue = priorities.map((p, i) => ({ i, p }));
     
     while (head < queue.length) {
@@ -12,4 +12,6 @@ function solution(priorities, location) {
             if (curr.i === location) return order;
         }
     }
+    
+    return answer;
 }
