@@ -1,37 +1,29 @@
 function solution(n, results) {
     var answer = 0;
-    const winGraph = Array.from({length: n + 1}, () => []);
-    const loseGraph = Array.from({length: n + 1}, () => []);
+    const graph = Array.from({ length: n + 1 }, () => Array(n + 1).fill(false));
     
-    for (const result of results) {
-        const [A, B] = result;
-        winGraph[A].push(B);
-        loseGraph[B].push(A);
+    for (const [A, B] of results) {
+        graph[A][B] = true; // A가 B를 이김
     }
     
-    const dfs = (node, graph, visited) => {
-        for (const next of graph[node]) {
-            if (!visited[next]) {
-                visited[next] = true;
-                dfs(next, graph, visited);
+    for (let k = 1; k <= n; k++) {
+        for (let i = 1; i <= n; i++) {
+            for (let j = 1; j <= n; j++) {
+                if (graph[i][k] && graph[k][j]) {
+                    graph[i][j] = true;
+                }
             }
         }
     }
     
     for (let i = 1; i <= n; i++) {
-        const winVisited = Array(n + 1).fill(false);
-        const loseVisited = Array(n + 1).fill(false);
-
-        dfs(i, winGraph, winVisited);
-        dfs(i, loseGraph, loseVisited);
+        let count = 0;
         
-        const count = winVisited.reduce((acc, curr) => {
-            if (curr) return acc + 1;
-            return acc;
-        }) + loseVisited.reduce((acc, curr) => {
-            if (curr) return acc + 1;
-            return acc;
-        });
+        for (let j = 1; j <= n; j++) {
+            if (i === j) continue;
+            
+            if (graph[i][j] || graph[j][i]) count++;
+        }
         
         if (count === n - 1) answer++;
     }
