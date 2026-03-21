@@ -1,12 +1,11 @@
 function solution(tickets) {
     var answer = [];
-    const graph = new Map();
-    const visited = Array(tickets.length).fill(false);  
     const path = ["ICN"];
+    const graph = new Map();
+    const visited = Array(tickets.length).fill(false);
     
     for (let i = 0; i < tickets.length; i++) {
         const [a, b] = tickets[i];
-        
         if (!graph.has(a)) graph.set(a, []);
         graph.get(a).push({ to: b, id: i });
     }
@@ -22,12 +21,11 @@ function solution(tickets) {
         }
         
         for (const ticket of graph.get(curr) || []) {
-            if (!visited[ticket.id]){
-                const next = ticket.to;
+            if (!visited[ticket.id]) {
                 visited[ticket.id] = true;
-                path.push(next);
+                path.push(ticket.to);
                 
-                if (dfs(next)) return true;
+                if (dfs(ticket.to)) return true;
                 
                 path.pop();
                 visited[ticket.id] = false;
