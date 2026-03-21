@@ -1,4 +1,5 @@
 function solution(m, n, puddles) {
+    var answer = 0;
     const dp = Array.from({ length: n }, () => Array(m).fill(0));
     
     for (const [x, y] of puddles) {
@@ -21,5 +22,6 @@ function solution(m, n, puddles) {
         }
     }
     
-    return dp[n - 1][m - 1]
+    answer = dp[n - 1][m - 1];
+    return answer;
 }
