@@ -9,6 +9,6 @@ function solution(n, money) {
             dp[i] %= 1000000007;
         }
     }
-        
+    
     return dp[n];
 }
