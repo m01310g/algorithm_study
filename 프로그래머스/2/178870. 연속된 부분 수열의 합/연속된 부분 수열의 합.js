@@ -1,7 +1,7 @@
 function solution(sequence, k) {
     var answer = [];
     let left = 0, right = 0;
-    let bestStart = Infinity, bestLength = Infinity;
+    let bestLength = Infinity, bestStart = Infinity;
     let sum = 0;
     
     while (right < sequence.length) {
@@ -10,7 +10,7 @@ function solution(sequence, k) {
         while (sum > k) {
             sum -= sequence[left++];
         }
-        
+                    
         if (sum === k) {
             if (right - left < bestLength) {
                 bestLength = right - left;
@@ -22,5 +22,6 @@ function solution(sequence, k) {
             }
         }
     }
+    
     return answer;
 }
