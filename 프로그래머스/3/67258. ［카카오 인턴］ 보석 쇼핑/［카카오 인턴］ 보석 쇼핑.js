@@ -1,24 +1,24 @@
 function solution(gems) {
     var answer = [];
-    const gemMap = new Map();
-    const n = (new Set(gems)).size;
+    const gemsMap = new Map();  // 보석 개수 저장 map
+    const n = (new Set(gems)).size; // 보석 종류의 수
     let left = 0, right = 0;
-    let bestLength = Infinity;
+    let bestLength = Infinity;  // 가장 짧은 구간
     
     while (right < gems.length) {
-        gemMap.set(gems[right], (gemMap.get(gems[right]) || 0) + 1);
+        gemsMap.set(gems[right], (gemsMap.get(gems[right]) || 0) + 1);
         right++;
         
-        while (gemMap.size === n) {
-            gemMap.set(gems[left], gemMap.get(gems[left]) - 1);
+        while (gemsMap.size === n) {
+            gemsMap.set(gems[left], gemsMap.get(gems[left]) - 1);
             
             if (right - left < bestLength) {
                 bestLength = right - left;
                 answer = [left + 1, right];
             }
             
-            if (gemMap.get(gems[left]) === 0) {
-                gemMap.delete(gems[left]);
+            if (gemsMap.get(gems[left]) === 0) {
+                gemsMap.delete(gems[left]);
             }
             
             left++;
